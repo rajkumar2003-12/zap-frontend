@@ -3,6 +3,8 @@ import { Heart } from "lucide-react";
 import axios from "axios";
 import { useState, useEffect } from "react";
 
+const BASE_URL = import.meta.env.VITE_BASE_URL;
+
 interface ZapId {
   zapid: number;
 }
@@ -17,7 +19,7 @@ export function Like({ zapid }: ZapId) {
       try {
         const token = localStorage.getItem("authToken");
         const res = await axios.get(
-          `https://backend.anumularajkumar2003.workers.dev/likes/get/${zapid}`,
+          `${BASE_URL}/likes/get/${zapid}`,
           {
             headers: {
               Authorization: `Bearer ${token}`,
@@ -42,7 +44,7 @@ export function Like({ zapid }: ZapId) {
     try {
       const token = localStorage.getItem("authToken");
       const res = await axios.post(
-        `https://backend.anumularajkumar2003.workers.dev/likes/like-unlike/${zapid}`,
+        `${BASE_URL}/likes/like-unlike/${zapid}`,
         {},
         {
           headers: {

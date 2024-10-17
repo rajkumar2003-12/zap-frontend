@@ -15,7 +15,8 @@ import {
 import { Input } from "@/components/ui/input";
 import axios from "axios"; 
 import { useState } from "react";
-// import { BASE_URL } from "@/config";
+
+const BASE_URL = import.meta.env.VITE_BASE_URL;
 const formSchema = z.object({
   email: z.string().email({
     message: "Invalid email address.",
@@ -41,7 +42,7 @@ export function SignInForm() {
   const onSubmit = async (data: SignInFormData) => {
     setLoading(true)
     try {
-      const response = await axios.post("https://backend.anumularajkumar2003.workers.dev/author/signin",{
+      const response = await axios.post(`${BASE_URL}/author/signin`,{
           email: data.email,
           password: data.password,
         },

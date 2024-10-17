@@ -3,6 +3,8 @@ import axios from "axios";
 import { Button } from "@/components/ui/button";
 import { UserPlus } from "lucide-react";
 
+const BASE_URL = import.meta.env.VITE_BASE_URL;
+
 interface FollowingProps {
   UserId: number;
 }
@@ -23,7 +25,7 @@ export function Follow({ UserId }: FollowingProps) {
 
        
         const res = await axios.get(
-          `https://backend.anumularajkumar2003.workers.dev/follow/get/${UserId}`,
+          `${BASE_URL}/follow/get/${UserId}`,
           {
             headers: {
               Authorization: `Bearer ${token}`,
@@ -59,7 +61,7 @@ export function Follow({ UserId }: FollowingProps) {
       }
 
       const res = await axios.post(
-        `https://backend.anumularajkumar2003.workers.dev/follow/follow-unfollow/${UserId}`,
+        `${BASE_URL}/follow/follow-unfollow/${UserId}`,
         {},
         {
           headers: {

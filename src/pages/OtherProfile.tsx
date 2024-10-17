@@ -9,6 +9,8 @@ import { Card, CardContent } from "@/components/ui/card";
 import { Follow } from "@/components/Follow";
 import {jwtDecode} from "jwt-decode";
 
+const BASE_URL = import.meta.env.VITE_BASE_URL;
+
 interface UserDetails {
   id: number;
   username: string;
@@ -44,7 +46,7 @@ export function OtherProfile() {
 
       setLoading(true);
       const res = await axios.get(
-        `https://backend.anumularajkumar2003.workers.dev/user/profile/${userId}`,
+        `${BASE_URL}/user/profile/${userId}`,
         {
           headers: {
             "content-type": "application/json",

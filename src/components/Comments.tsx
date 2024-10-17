@@ -11,6 +11,8 @@ import {
   DialogDescription,
 } from "@/components/ui/dialog";
 
+const BASE_URL = import.meta.env.VITE_BASE_URL;
+
 interface User {
   username: string;
 }
@@ -36,7 +38,7 @@ export function Comments({ zapId }: CommentInputProps) {
     try {
       const token = localStorage.getItem("authToken");
       const res = await axios.get(
-        `https://backend.anumularajkumar2003.workers.dev/comment/get/${zapId}`,
+        `${BASE_URL}/comment/get/${zapId}`,
         {
           headers: {
             Authorization: `Bearer ${token}`,
@@ -67,7 +69,7 @@ export function Comments({ zapId }: CommentInputProps) {
     try {
       const token = localStorage.getItem("authToken");
       const response = await axios.post(
-        "https://backend.anumularajkumar2003.workers.dev/comment/create",
+        `${BASE_URL}/comment/create`,
         {
           content: commentInput,
           zapid: zapId,

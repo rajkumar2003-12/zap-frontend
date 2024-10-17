@@ -6,6 +6,8 @@ import axios from "axios";
 import { Link } from "react-router-dom";
 import { useEffect, useState } from "react";
 
+const BASE_URL = import.meta.env.VITE_BASE_URL;
+
 interface ProfileData {
   username: string;
   name: string;
@@ -22,7 +24,7 @@ export function Profile() {
     async function fetchData() {
       try {
         const token = localStorage.getItem("authToken");
-        const res = await axios.get("https://backend.anumularajkumar2003.workers.dev/user/get-profile",{
+        const res = await axios.get(`${BASE_URL}/user/get-profile`,{
           headers: {
             Authorization: `Bearer ${token}`,
             "Content-Type": "application/json",

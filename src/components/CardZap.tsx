@@ -5,6 +5,8 @@ import { Like } from "@/pages/LikeReaction";
 import { Follow } from "./Follow";
 import { Comments } from "./Comments";
 import {jwtDecode} from "jwt-decode";
+
+const BASE_URL = import.meta.env.VITE_BASE_URL;
 interface User{
   id:number;
   name:string;
@@ -41,7 +43,7 @@ export function ZapsPage() {
       }
       setLoading(true);
       const response = await axios.get(
-        "https://backend.anumularajkumar2003.workers.dev/zap/get",
+        `${BASE_URL}/zap/get`,
         {
           headers: {
             Authorization: `Bearer ${token}`,
@@ -70,7 +72,7 @@ export function ZapsPage() {
     try {
       const token = localStorage.getItem("authToken");
       const response = await axios.post(
-        "https://backend.anumularajkumar2003.workers.dev/zap/create",
+        `${BASE_URL}/zap/create`,
         {
           title: title,
           content: contentInput,
@@ -124,7 +126,6 @@ export function ZapsPage() {
       </div>
     );
   }  
-  // if (ZapContent.length === 0) return <div>No Zaps available</div>;
 
   return (
     <div>

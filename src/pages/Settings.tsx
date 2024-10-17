@@ -16,6 +16,8 @@ import {
 import { Input } from "@/components/ui/input";
 import { useForm } from "react-hook-form";
 
+const BASE_URL = import.meta.env.VITE_BASE_URL;
+
 
 interface ProfileEdit {
   username?: string;
@@ -48,7 +50,7 @@ export function Setting({ username = "", name = "", email = "",password=""}: Pro
       }
 
       const res = await axios.put(
-        "https://backend.anumularajkumar2003.workers.dev/user/profile-edit",
+        `${BASE_URL}/user/profile-edit`,
         {
           username: data.username,
           name: data.name,

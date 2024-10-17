@@ -11,6 +11,8 @@ import { Input } from '@/components/ui/input';
 import axios from 'axios';
 import { useState } from 'react';
 
+const BASE_URL = import.meta.env.VITE_BASE_URL;
+
 interface Zap {
   id: string;
   title: string;
@@ -32,7 +34,7 @@ export function SearchZap() {
     try {
       const token = localStorage.getItem("authToken")
       const response = await axios.get(
-        `https://backend.anumularajkumar2003.workers.dev/zap/search?title=${encodeURIComponent(searchTitle)}`,{
+        `${BASE_URL}/zap/search?title=${encodeURIComponent(searchTitle)}`,{
           headers:{
             "Content-Type" : "application/json",
             Authorization : `Bearer ${token}`

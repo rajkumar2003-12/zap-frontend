@@ -16,6 +16,8 @@ import {
 import { Input } from "@/components/ui/input";
 import axios from "axios"; 
 
+const BASE_URL = import.meta.env.VITE_BASE_URL;
+
 const formSchema = z.object({
   username: z.string().min(2, {
     message: "Username must be at least 2 characters.",
@@ -46,7 +48,7 @@ export function SignUpForm() {
     setLoading(true);
     try {
       const response = await axios.post(
-        "https://backend.anumularajkumar2003.workers.dev/author/signup",
+        `${BASE_URL}/author/signup`,
         {
           username: data.username,
           name: data.name,
