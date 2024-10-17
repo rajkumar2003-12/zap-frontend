@@ -1,6 +1,6 @@
 import axios from "axios";
 import { useState } from "react";
-import { Zap,Home,Search,User,Settings } from "lucide-react";
+import { Zap,Home,User,Settings } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Link } from "react-router-dom";
 
@@ -15,6 +15,7 @@ import {
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
 import { useForm } from "react-hook-form";
+import { useNavigate } from 'react-router-dom';
 
 const BASE_URL = import.meta.env.VITE_BASE_URL;
 
@@ -28,6 +29,7 @@ interface ProfileEdit {
 
 export function Setting({ username = "", name = "", email = "",password=""}: ProfileEdit) {
   const [loading, setLoading] = useState(false);
+  const navigate = useNavigate();
 
   const form = useForm({
     defaultValues: {
@@ -77,6 +79,10 @@ export function Setting({ username = "", name = "", email = "",password=""}: Pro
       setLoading(false);
     }
   };
+  const handleLogout = () => {
+    localStorage.removeItem("authToken");
+    navigate('/signin'); 
+  };
 
   return (
 
@@ -91,7 +97,6 @@ export function Setting({ username = "", name = "", email = "",password=""}: Pro
             <Link to = "/main">
                 <Button variant="ghost" size="icon"><Home className="h-5 w-5" /></Button>
             </Link>
-            <Button variant="ghost" size="icon"><Search className="h-5 w-5 " /></Button>
             <Link to="/settings">
             <Button variant="ghost" size="icon"><Settings className="h-5 w-5 " /></Button>
             </Link>
@@ -174,7 +179,8 @@ export function Setting({ username = "", name = "", email = "",password=""}: Pro
             </Button>
 
             <div>
-              <Link to="/signin"><button className="text-red-800 text-decoration: underline bg-white px-4 py-1 ml-5 mb-2 hover:bg-black hover:text-red-900 rounded">Log out</button></Link>
+              <button className="text-red-800 text-decoration: underline bg-white px-4 py-1 ml-5 mb-2 hover:bg-black hover:text-red-900 rounded"
+              onClick={handleLogout}>Log out</button>
              
             </div>
           </form>
