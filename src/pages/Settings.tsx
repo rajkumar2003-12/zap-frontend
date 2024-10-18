@@ -86,7 +86,7 @@ export function Setting({ username = "", name = "", email = "",password=""}: Pro
 
   return (
 
-      <div className="bg-color1 rounded-lg shadow-md w-full min-h-screen">
+      <div className="rounded-lg shadow-md w-full min-h-screen">
       <header className="bg-color2 sticky top-0 z-10 backdrop-blur-md bg-opacity-80">
             <div className="max-w-5xl mx-auto px-4 py-3 flex justify-between items-center">
             <h1 className="text-3xl font-bold flex items-center">
@@ -107,7 +107,8 @@ export function Setting({ username = "", name = "", email = "",password=""}: Pro
             </div>
             </header>
         <Form {...form}>
-          <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-8 ml-5 mt-5">
+          <h1 className="text-2xl text-center font-bold mt-3" >Edit your profile</h1>
+          <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-8 m-4">
             <FormField
               control={form.control}
               name="username"
@@ -115,10 +116,9 @@ export function Setting({ username = "", name = "", email = "",password=""}: Pro
                 <FormItem>
                   <FormLabel>Username</FormLabel>
                   <FormControl>
-                    <Input placeholder="Enter your username" {...field} />
+                    <Input placeholder="Please update your username" {...field} />
                   </FormControl>
                   <FormDescription>
-                    This will be your display name.
                   </FormDescription>
                   <FormMessage />
                 </FormItem>
@@ -132,10 +132,9 @@ export function Setting({ username = "", name = "", email = "",password=""}: Pro
                 <FormItem>
                   <FormLabel>Name</FormLabel>
                   <FormControl>
-                    <Input placeholder="Enter your name" {...field} />
+                    <Input placeholder="Please update your name" {...field} />
                   </FormControl>
                   <FormDescription>
-                    Please enter your name.
                   </FormDescription>
                   <FormMessage />
                 </FormItem>
@@ -149,10 +148,9 @@ export function Setting({ username = "", name = "", email = "",password=""}: Pro
                 <FormItem>
                   <FormLabel>Email</FormLabel>
                   <FormControl>
-                    <Input placeholder="Enter your email" {...field} />
+                    <Input placeholder="Please update your email" {...field} />
                   </FormControl>
                   <FormDescription>
-                    Please update your email address.
                   </FormDescription>
                   <FormMessage />
                 </FormItem>
@@ -165,18 +163,19 @@ export function Setting({ username = "", name = "", email = "",password=""}: Pro
               <FormItem>
                   <FormLabel>Password</FormLabel>
                   <FormControl>
-                    <Input placeholder="Enter your new password" {...field} />
+                    <Input placeholder="Please update your new password" {...field} />
                   </FormControl>
                   <FormDescription>
-                    Please update your password.
                   </FormDescription>
                   <FormMessage />
                 </FormItem>
               )}
             />
-            <Button type="submit" className="ml-5" disabled={loading}>
+            <div>
+            <Button type="submit" className="w-full" disabled={loading}>
               {loading ? "Please wait..." : "Update Profile"}
             </Button>
+            </div>
 
             <div>
               <button className="text-red-800 text-decoration: underline bg-white px-4 py-1 ml-5 mb-2 hover:bg-black hover:text-red-900 rounded"

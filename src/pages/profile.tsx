@@ -19,10 +19,12 @@ interface ProfileData {
 
 export function Profile() {
   const [profile, setProfile] = useState<ProfileData | null>(null);
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     async function fetchData() {
       try {
+        setLoading(true)
         const token = localStorage.getItem("authToken");
         const res = await axios.get(`${BASE_URL}/user/get-profile`,{
           headers: {
@@ -32,7 +34,9 @@ export function Profile() {
         });
         setProfile(res.data.profile);
         console.log("profiledata",res.data.profile)
+        setLoading(false)
       } catch (e) {
+        setLoading(false)
         console.log("Error fetching profile:", e);
       }
     }
@@ -40,14 +44,16 @@ export function Profile() {
     fetchData();
   }, []);
 
-  if (!profile) {
+  if (loading) {
     return (
       <div className="min-h-screen bg-color1 flex items-center justify-center text-green-900">
         <p className="text-xl font-semibold">Loading profile...</p>
       </div>
     );
   }
-  
+  if (!profile) {
+    return <p>No profile data found.</p>;
+  }
   return (
     <div>
         <header className="bg-color2 sticky top-0 z-10 backdrop-blur-md bg-opacity-80">

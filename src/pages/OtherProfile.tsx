@@ -85,9 +85,8 @@ export function OtherProfile() {
   
 
   if (!profileData) {
-    return <p className="flex justify-center min-h-screen bg-color1">User not found.</p>;
+    return <p>No profile data found.</p>;
   }
-
   return (
     <div>
       <header className="bg-color2 sticky top-0 z-10 backdrop-blur-md bg-opacity-80">
