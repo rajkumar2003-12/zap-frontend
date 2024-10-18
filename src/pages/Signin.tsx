@@ -73,8 +73,17 @@ export function SignInForm() {
   };
 
   return (
-    <div className="flex items-center justify-center min-h-screen bg-black">
-      <div className="bg-color1 p-6 rounded-lg shadow-md w-full max-w-md">
+    <div className="flex items-center justify-center min-h-screen m-4">
+      <div className="p-6 rounded-lg shadow-md w-full max-w-md">
+      <div className="text-center mb-4">
+      <h1 className="text-2xl text-center font-bold">Sign in</h1>
+          <p className="text-sm">
+            Don't have an account?{" "}
+            <Link to="/signup" className="text-blue-500 underline">
+              Sign up
+            </Link>
+          </p>
+        </div>
         <Form {...form}>
           <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-8">
             <FormField
@@ -87,7 +96,6 @@ export function SignInForm() {
                     <Input placeholder="Enter your email" {...field} />
                   </FormControl>
                   <FormDescription>
-                    Please enter your registered email address.
                   </FormDescription>
                   <FormMessage />
                 </FormItem>
@@ -103,24 +111,14 @@ export function SignInForm() {
                     <Input type="password" placeholder="Enter your password" {...field} />
                   </FormControl>
                   <FormDescription>
-                    Your password must be at least 6 characters.
                   </FormDescription>
                   <FormMessage />
                 </FormItem>
               )}
             />
-            <Button type="submit" disabled={Loading}>{Loading? "please wait...": "sign in"}</Button>
+            <Button className="w-full" type="submit" disabled={Loading}>{Loading? "please wait...": "sign in"}</Button>
           </form>
         </Form>
-
-        <div className="mt-4 text-center">
-          <p className="text-sm">
-            Don't have an account?{" "}
-            <Link to="/signup" className="text-blue-500 underline">
-              Sign up
-            </Link>
-          </p>
-        </div>
       </div>
     </div>
   );

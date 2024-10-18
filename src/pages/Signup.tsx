@@ -84,8 +84,17 @@ export function SignUpForm() {
   };
 
   return (
-    <div className="flex items-center justify-center min-h-screen bg-black">
-      <div className="p-6 bg-color1 rounded-lg shadow-md w-full max-w-md">
+    <div className="flex items-center justify-center min-h-screen m-4">
+      <div className="p-6 rounded-lg shadow-md w-full max-w-md">
+        <div className="mt-4 text-center mb-4">
+        <h1 className="text-2xl text-center font-bold">Create an account</h1>
+          <p className="text-sm mb-2">
+            Already have an account?{" "}
+            <Link to="/signin" className="text-blue-500 underline">
+              Sign in
+            </Link>
+          </p>
+        </div>
         <Form {...form}>
           <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-8">
             <FormField
@@ -98,7 +107,6 @@ export function SignUpForm() {
                     <Input placeholder="Enter your username" {...field} />
                   </FormControl>
                   <FormDescription>
-                    This will be your display name.
                   </FormDescription>
                   <FormMessage />
                 </FormItem>
@@ -115,7 +123,6 @@ export function SignUpForm() {
                     <Input placeholder="Enter your name" {...field} />
                   </FormControl>
                   <FormDescription>
-                    Please enter your name.
                   </FormDescription>
                   <FormMessage />
                 </FormItem>
@@ -132,7 +139,6 @@ export function SignUpForm() {
                     <Input placeholder="Enter your email" {...field} />
                   </FormControl>
                   <FormDescription>
-                    Please enter your registered email address.
                   </FormDescription>
                   <FormMessage />
                 </FormItem>
@@ -149,27 +155,17 @@ export function SignUpForm() {
                     <Input type="password" placeholder="Enter your password" {...field} />
                   </FormControl>
                   <FormDescription>
-                    Your password must be at least 6 characters.
                   </FormDescription>
                   <FormMessage />
                 </FormItem>
               )}
             />
 
-            <Button type="submit" disabled={loading}>
+            <Button  className="w-full" type="submit" disabled={loading}>
               {loading ? "Please wait..." : "Sign Up"} 
             </Button>
           </form>
         </Form>
-
-        <div className="mt-4 text-center">
-          <p className="text-sm">
-            Already have an account?{" "}
-            <Link to="/signin" className="text-blue-500 underline">
-              Sign in
-            </Link>
-          </p>
-        </div>
       </div>
     </div>
   );
