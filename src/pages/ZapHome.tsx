@@ -6,6 +6,7 @@ import { Link } from "react-router-dom";
 import {SearchZap } from "./SearchZaps";
 
 export function ZAPHOME(){
+
     return (
         <div>
         <div className=" min-h-screen bg-color1">

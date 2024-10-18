@@ -8,12 +8,14 @@ import { Setting } from './pages/Settings';
 import { OtherProfile } from './pages/OtherProfile';
 import { SearchZap } from './pages/SearchZaps';
 import { ProtectedRoute } from './components/ProtectRoute'; 
+import { HomeRedirect } from './pages/HomeRedirect';
 
 function App() {
   return (
     <>
       <BrowserRouter>
         <Routes>
+          <Route path='/' element={<HomeRedirect/>} />
           <Route path="/signin" element={<SignInForm />} />
           <Route path="/signup" element={<SignUpForm />} />
           <Route path="/main" element={<ProtectedRoute element={<ZAPHOME />} />} />

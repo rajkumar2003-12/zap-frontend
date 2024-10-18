@@ -14,7 +14,7 @@ import {
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
 import axios from "axios"; 
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 const BASE_URL = import.meta.env.VITE_BASE_URL;
 const formSchema = z.object({
@@ -38,6 +38,12 @@ export function SignInForm() {
 
   const navigate = useNavigate(); 
   const [Loading, setLoading] =useState(false)
+
+  useEffect(() => {
+    if (localStorage.getItem("authToken") != null) {
+      navigate("/main");
+    }
+  })
 
   const onSubmit = async (data: SignInFormData) => {
     setLoading(true)

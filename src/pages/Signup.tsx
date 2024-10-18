@@ -2,7 +2,7 @@ import { Link, useNavigate } from "react-router-dom";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Button } from "@/components/ui/button";
 import {
   Form,
@@ -42,6 +42,12 @@ export function SignUpForm() {
 
   const navigate = useNavigate();
   const [loading, setLoading] = useState(false); 
+
+  useEffect(() => {
+    if (localStorage.getItem("authToken") != null) {
+      navigate("/main");
+    }
+  })
 
   const onSubmit = async (data: FormData) => {
     console.log("Submitting data:", data);
