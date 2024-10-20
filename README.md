@@ -1,6 +1,5 @@
 
-# Zap (frontend) [Live link]
-Zap is a website where you can post technical blogs that are too big for X and too small for Medium.
+# Zap (frontend) [https://zap-rajkumar.vercel.app/]
 
 ## Tech Stack:
 - React 
