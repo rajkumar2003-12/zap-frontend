@@ -191,8 +191,6 @@ export function OtherProfile() {
         </CardContent>
       </Card>
 
-      {/* Dialog for Followers and Following */}
-    {/* Dialog for Followers and Following */}
 <Dialog open={isDialogOpen} onOpenChange={setIsDialogOpen}>
   <DialogContent>
     <DialogHeader>
