@@ -1,13 +1,14 @@
 import axios from "axios";
 import { useEffect, useState, useCallback } from "react";
 import { useLocation } from "react-router-dom";
-import { Zap,Mail,Settings,User,Home } from "lucide-react";
+import { Zap, Mail, Settings, User, Home } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Link } from "react-router-dom";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Card, CardContent } from "@/components/ui/card";
 import { Follow } from "@/components/Follow";
-import {jwtDecode} from "jwt-decode";
+import { jwtDecode } from "jwt-decode";
+import { Dialog, DialogContent, DialogHeader, DialogTitle } from "@/components/ui/dialog";
 
 const BASE_URL = import.meta.env.VITE_BASE_URL;
 
@@ -16,11 +17,15 @@ interface UserDetails {
   username: string;
   name: string;
   email: string;
-  followers: number;
-  following: number;
   avatar?: string; 
 }
 
+interface FollowList {
+  followersCount: number;
+  followingCount: number;
+  followersList: UserDetails[];
+  followingList:UserDetails[];
+}
 
 interface DecodedToken {
   id: number;
@@ -31,7 +36,10 @@ export function OtherProfile() {
   const { userId } = location.state || {};
   const [profileData, setProfileData] = useState<UserDetails | null>(null);
   const [loading, setLoading] = useState<boolean>(true);
-  const [UserId, setUserId] = useState<number | null>(null)
+  const [UserId, setUserId] = useState<number | null>(null);
+  const [UserIdFollowList, setUserIdFollowList] = useState<FollowList | null>(null);
+  const [isDialogOpen, setIsDialogOpen] = useState<boolean>(false);
+  const [dialogType, setDialogType] = useState<'followers' | 'following' | null>(null);
 
   const fetchData = useCallback(async () => {
     try {
@@ -42,7 +50,6 @@ export function OtherProfile() {
       } else {
         console.error("No token found");
       }
-    
 
       setLoading(true);
       const res = await axios.get(
@@ -75,6 +82,44 @@ export function OtherProfile() {
     }
   }, [fetchData, userId]);
 
+  const FollowerFollowingList = async () => {
+    try {
+      const token = localStorage.getItem("authToken");
+      const res = await axios.get(`${BASE_URL}/follow/get/${userId}`, {
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`,
+        },
+      });
+      if (res.data && res.data.followList) {
+        setUserIdFollowList(res.data.followList);
+        console.log("Follow Lists", res.data.followList);
+      }
+    } catch (e) {
+      console.log("Error", e);
+    }
+  };
+
+  useEffect(() => {
+    if (userId) {
+      FollowerFollowingList();
+    }
+  }, [userId]);
+
+  const openFollowersDialog = () => {
+    setDialogType('followers');
+    setIsDialogOpen(true);
+  };
+
+  const openFollowingDialog = () => {
+    setDialogType('following');
+    setIsDialogOpen(true);
+  };
+
+  const closeDialog = () => {
+    setIsDialogOpen(false);
+  };
+
   if (loading) {
     return (
       <div className="min-h-screen bg-color1 flex items-center justify-center text-green-900">
@@ -82,11 +127,11 @@ export function OtherProfile() {
       </div>
     );
   }
-  
 
   if (!profileData) {
     return <p>No profile data found.</p>;
   }
+
   return (
     <div>
       <header className="bg-color2 sticky top-0 z-10 backdrop-blur-md bg-opacity-80">
@@ -128,19 +173,16 @@ export function OtherProfile() {
             <h1 className="text-3xl font-bold mb-1">{profileData.name}</h1>
             <p className="text-muted-foreground mb-4">@{profileData.username}</p>
             <div className="flex space-x-4 mb-6">
-              <div className="text-center">
-                <p className="text-2xl font-semibold">{profileData.followers}</p>
-                <p className="text-sm text-muted-foreground">Followers</p>
-              </div>
-              <div className="text-center">
-                <p className="text-2xl font-semibold">{profileData.following}</p>
-                <p className="text-sm text-muted-foreground">Following</p>
-              </div>
+              <Button variant="outline" onClick={openFollowersDialog}>
+                Followers ({UserIdFollowList?.followersCount})
+              </Button>
+              <Button variant="outline" onClick={openFollowingDialog}>
+                Following ({UserIdFollowList?.followingCount})
+              </Button>
             </div>
             {UserId !== profileData.id && (
               <Follow UserId={userId} />
             )}
-
             <div className="flex items-center text-muted-foreground">
               <Mail className="mr-2 h-4 w-4" />
               <span>{profileData.email}</span>
@@ -148,6 +190,34 @@ export function OtherProfile() {
           </div>
         </CardContent>
       </Card>
-      </div>
+
+      {/* Dialog for Followers and Following */}
+    {/* Dialog for Followers and Following */}
+<Dialog open={isDialogOpen} onOpenChange={setIsDialogOpen}>
+  <DialogContent>
+    <DialogHeader>
+      <DialogTitle>{dialogType === 'followers' ? 'Followers' : 'Following'}</DialogTitle>
+    </DialogHeader>
+    <ul>
+      {(dialogType === 'followers' ? UserIdFollowList?.followersList : UserIdFollowList?.followingList)?.map(user => (
+        <li key={user.id} className="flex items-center space-x-4 py-2">
+          <Avatar className="w-10 h-10">
+            {user.avatar ? (
+              <AvatarImage src={user.avatar} alt={user.name} />
+            ) : (
+              <AvatarFallback>{user.username[0].toUpperCase()}</AvatarFallback>
+            )}
+          </Avatar>
+          <div>
+            <p className="font-semibold">{user.name}</p>
+            <p className="text-sm text-muted-foreground">@{user.username}</p>
+          </div>
+        </li>
+      ))}
+    </ul>
+    <Button onClick={closeDialog}>Close</Button>
+  </DialogContent>
+</Dialog>
+    </div>
   );
 }
