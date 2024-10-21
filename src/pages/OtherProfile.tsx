@@ -80,7 +80,7 @@ export function OtherProfile() {
     if (userId) {
       fetchData();
     }
-  }, [fetchData, userId]);
+  }, [fetchData,userId]);
 
   const FollowerFollowingList = async () => {
     try {
@@ -104,7 +104,7 @@ export function OtherProfile() {
     if (userId) {
       FollowerFollowingList();
     }
-  }, [userId]);
+  }, [FollowerFollowingList,userId]);
 
   const openFollowersDialog = () => {
     setDialogType('followers');
@@ -181,7 +181,7 @@ export function OtherProfile() {
               </Button>
             </div>
             {UserId !== profileData.id && (
-              <Follow UserId={userId} />
+              <Follow UserId={profileData.id}/>
             )}
             <div className="flex items-center text-muted-foreground">
               <Mail className="mr-2 h-4 w-4" />

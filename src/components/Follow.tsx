@@ -10,9 +10,8 @@ interface FollowingProps {
 }
 
 export function Follow({ UserId }: FollowingProps) {
-  const [isFollowing, setIsFollowing] = useState(false); 
-  const [loading, setLoading] = useState(true);  
-
+  const [isFollowing, setIsFollowing] = useState<boolean | null>(null);
+  const [loading, setLoading] = useState<boolean>(true);
 
   useEffect(() => {
     const fetchFollowStatus = async () => {
@@ -23,9 +22,8 @@ export function Follow({ UserId }: FollowingProps) {
           return;
         }
 
-       
         const res = await axios.get(
-          `${BASE_URL}/follow/get/${UserId}`,
+          `${BASE_URL}/follow/get/${UserId}`, 
           {
             headers: {
               Authorization: `Bearer ${token}`,
@@ -34,8 +32,8 @@ export function Follow({ UserId }: FollowingProps) {
         );
 
         if (res.status === 200) {
-          setIsFollowing(res.data.isFollowing); 
-          console.log("followfetch",res.data)
+          const { isFollowing } = res.data;
+          setIsFollowing(isFollowing);
         } else {
           console.error("Failed to fetch follow status.");
         }
@@ -47,11 +45,10 @@ export function Follow({ UserId }: FollowingProps) {
     };
 
     fetchFollowStatus();
-  }, [UserId]); 
+  }, [UserId]);
 
-
-  const handleFollow = async () => {
-    setLoading(true); 
+  const handleFollowToggle = async () => {
+    setLoading(true);
 
     try {
       const token = localStorage.getItem("authToken");
@@ -65,23 +62,24 @@ export function Follow({ UserId }: FollowingProps) {
         {},
         {
           headers: {
-            "content-type":"application/json",
+            "Content-Type": "application/json",
             Authorization: `Bearer ${token}`,
           },
         }
       );
 
       if (res.data.success) {
-        setIsFollowing(!isFollowing); 
+        setIsFollowing((prev) => !prev);
       } else {
         console.error("Failed to toggle follow status.");
       }
     } catch (e) {
       console.error("Error toggling follow status: ", e);
     } finally {
-      setLoading(false); 
+      setLoading(false);
     }
   };
+
 
   return (
     <div className="space-y-2">
@@ -89,12 +87,12 @@ export function Follow({ UserId }: FollowingProps) {
         <Button
           variant="outline"
           size="sm"
-          onClick={handleFollow} 
+          onClick={handleFollowToggle}
           className={`${isFollowing ? "bg-green-800 text-white" : "bg-black text-white"}`}
-          disabled={loading} 
+          disabled={loading}
         >
           <UserPlus className="h-4 w-4 mr-2" />
-          {isFollowing ? "Following" : "Follow"}  
+          {isFollowing ? "Following" : "Follow"}
         </Button>
       </div>
     </div>
