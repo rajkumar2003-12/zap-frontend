@@ -31,7 +31,6 @@ export function ZapsPage() {
   const [zapCreated, setZapCreated] = useState<number>(0);
   const [UserId , setUserId] = useState<number | null>(null)
 
-
   const fetchData = async () => {
     try {
       const token = localStorage.getItem("authToken");
@@ -186,12 +185,16 @@ export function ZapsPage() {
         </div>
         </div>
   <div key={zap.id} className="bg-white p-4 sm:p-6">
+
+  <Link to='/openzap' 
+  state={{  ZapUserId: Number(zap.id),}}>
     <a href="#">
       <h3 className="mt-0.5 text-lg text-gray-900">{zap.title}</h3>
     </a>
     <p className="mt-2 line-clamp-3 text-sm/relaxed text-gray-500">{zap.content}</p>
     <time className="block text-xs text-green-600 mt-2">{formatDate(zap.updatedAt)}</time>
-
+    </Link>
+    
     <div className="mt-3 flex space-x-4"> 
     <Like zapid={Number(zap.id)} />  
     <Comments zapId={Number(zap.id)} />

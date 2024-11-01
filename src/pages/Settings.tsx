@@ -15,7 +15,6 @@ import {
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
 import { useForm } from "react-hook-form";
-import { useNavigate } from 'react-router-dom';
 
 const BASE_URL = import.meta.env.VITE_BASE_URL;
 
@@ -29,7 +28,6 @@ interface ProfileEdit {
 
 export function Setting({ username = "", name = "", email = "",password=""}: ProfileEdit) {
   const [loading, setLoading] = useState(false);
-  const navigate = useNavigate();
 
   const form = useForm({
     defaultValues: {
@@ -78,10 +76,6 @@ export function Setting({ username = "", name = "", email = "",password=""}: Pro
     } finally {
       setLoading(false);
     }
-  };
-  const handleLogout = () => {
-    localStorage.removeItem("authToken");
-    navigate('/signin'); 
   };
 
   return (
@@ -175,12 +169,6 @@ export function Setting({ username = "", name = "", email = "",password=""}: Pro
             <Button type="submit" className="w-full" disabled={loading}>
               {loading ? "Please wait..." : "Update Profile"}
             </Button>
-            </div>
-
-            <div>
-              <button className="text-red-800 text-decoration: underline bg-white px-4 py-1 ml-5 mb-2 hover:bg-black hover:text-red-900 rounded"
-              onClick={handleLogout}>Log out</button>
-             
             </div>
           </form>
         </Form>

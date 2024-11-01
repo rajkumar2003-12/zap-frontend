@@ -1,7 +1,7 @@
 import axios from "axios";
 import { useEffect, useState, useCallback } from "react";
 import { useLocation } from "react-router-dom";
-import { Zap, Mail, Settings, User, Home } from "lucide-react";
+import { Zap, Mail,User, Home } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Link } from "react-router-dom";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
@@ -9,6 +9,7 @@ import { Card, CardContent } from "@/components/ui/card";
 import { Follow } from "@/components/Follow";
 import { jwtDecode } from "jwt-decode";
 import { Dialog, DialogContent, DialogHeader, DialogTitle } from "@/components/ui/dialog";
+import { SettingsMenu } from "@/components/settingBut";
 
 const BASE_URL = import.meta.env.VITE_BASE_URL;
 
@@ -146,11 +147,7 @@ export function OtherProfile() {
                 <Home className="h-5 w-5" />
               </Button>
             </Link>
-            <Link to="/settings">
-              <Button variant="ghost" size="icon">
-                <Settings className="h-5 w-5 " />
-              </Button>
-            </Link>
+            <SettingsMenu/>
             <Link to="/profile">
               <Button variant="ghost" size="icon">
                 <User className="h-5 w-5" />

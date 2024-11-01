@@ -1,12 +1,11 @@
 
-import { Zap,Home,User,Settings } from "lucide-react";
+import { Zap,Home,User,Search } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { ZapsPage } from "@/components/CardZap";
 import { Link } from "react-router-dom";
-import {SearchZap } from "./SearchZaps";
+import { SettingsMenu } from "@/components/settingBut";
 
 export function ZAPHOME(){
-
     return (
         <div>
         <div className=" min-h-screen bg-color1">
@@ -20,18 +19,17 @@ export function ZAPHOME(){
             <Link to = "/main">
                 <Button variant="ghost" size="icon"><Home className="h-5 w-5" /></Button>
             </Link>
-            <SearchZap />
-            {/* <Button variant="ghost" size="icon"><Search className="h-5 w-5 " /></Button> */}
-            <Link to="/settings">
-            <Button variant="ghost" size="icon"><Settings className="h-5 w-5 " /></Button>
+            <Link to ="/search">
+            <Button variant="ghost" size="icon"><Search className="h-5 w-5 " /></Button>
             </Link>
+            <SettingsMenu/>
             <Link to="/profile">
                 <Button variant="ghost" size="icon"><User className="h-5 w-5" /></Button>
             </Link>
             </div>
             </div>
             </header>
-            <div>
+            <div className="mb-6">
                 <ZapsPage/>
             </div>
         </div>

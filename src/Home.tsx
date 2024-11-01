@@ -9,6 +9,7 @@ import { OtherProfile } from './pages/OtherProfile';
 import { SearchZap } from './pages/SearchZaps';
 import { ProtectedRoute } from './components/ProtectRoute'; 
 import { HomeRedirect } from './pages/HomeRedirect';
+import { OpenZap } from './pages/OpenZap';
 
 function App() {
   return (
@@ -23,6 +24,7 @@ function App() {
           <Route path="/settings" element={<ProtectedRoute element={<Setting />} />} />
           <Route path="/users" element={<ProtectedRoute element={<OtherProfile />} />} />
           <Route path="/search" element={<ProtectedRoute element={<SearchZap />} />} />
+          <Route path="/openzap" element ={<ProtectedRoute element={<OpenZap/>}/>}/>
         </Routes>
       </BrowserRouter>
     </>
