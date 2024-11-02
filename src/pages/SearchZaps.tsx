@@ -101,16 +101,16 @@ export function SearchZap() {
                  <p className="text-sm text-white">@{zap.author?.username || "Anonymous"}</p>
                </div>
                </div>
-               <Link to="/openzap" state={{ZapUserId:Number(zap.id),}}>
                 <div key={zap.id} className="border p-4 rounded-lg mb-2">
+                <Link to="/openzap" state={{ZapUserId:Number(zap.id),}}>
                   <h3 className="font-bold">{zap.title}</h3>
                   <p className="mt-2">{zap.content}</p>
+                  </Link>
                   <div className="mt-3 flex space-x-4"> 
                    <Like zapid={Number(zap.id)} />  
                    <Comments zapId={Number(zap.id)} />
                 </div>
                 </div>
-                </Link>
                 </div>
               ))}
             </div>
