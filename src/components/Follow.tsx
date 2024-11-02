@@ -88,7 +88,7 @@ export function Follow({ UserId }: FollowingProps) {
           variant="outline"
           size="sm"
           onClick={handleFollowToggle}
-          className={`${isFollowing ? "bg-green-800 text-white" : "bg-black text-white"}`}
+          className={`${isFollowing ? "bg-green-800 text-white rounded-full" : "bg-black text-white rounded-full"}`}
           disabled={loading}
         >
           <UserPlus className="h-4 w-4 mr-2" />

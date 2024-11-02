@@ -1,12 +1,13 @@
 
 import { Button } from '@/components/ui/button';
 import { Link } from 'react-router-dom';
-import { Zap,Home,User} from "lucide-react";
+import { Zap} from "lucide-react";
 import { Input } from '@/components/ui/input';
 import axios from 'axios';
 import { useState } from 'react';
 import { Like } from './LikeReaction';
 import { Comments } from '@/components/Comments';
+import { ZapHeader } from '@/components/ZapHeader';
 
 const BASE_URL = import.meta.env.VITE_BASE_URL;
 
@@ -71,22 +72,7 @@ export function SearchZap() {
 
   return (
     <div>
-          <header className="bg-color2 sticky top-0 z-10 backdrop-blur-md bg-opacity-80">
-            <div className="max-w-5xl mx-auto px-4 py-3 flex justify-between items-center">
-            <h1 className="text-3xl font-bold flex items-center">
-            <Zap className="h-8 w-8 mr-2 animate-pulse" />
-                Zap
-            </h1>
-            <div className="flex space-x-4">
-            <Link to = "/main">
-                <Button variant="ghost" size="icon"><Home className="h-5 w-5" /></Button>
-            </Link>
-            <Link to="/profile">
-                <Button variant="ghost" size="icon"><User className="h-5 w-5" /></Button>
-            </Link>
-            </div>
-            </div>
-            </header>
+      <ZapHeader/>
             <div className='text-black text-3xl font-bold text-center mt-4 mb-2 underline decoration-gray-400'>Explore Zap Titles</div>
           <div className="flex items-center gap-4 m-6">
             <Input
@@ -115,6 +101,7 @@ export function SearchZap() {
                  <p className="text-sm text-white">@{zap.author?.username || "Anonymous"}</p>
                </div>
                </div>
+               <Link to="/openzap" state={{ZapUserId:Number(zap.id),}}>
                 <div key={zap.id} className="border p-4 rounded-lg mb-2">
                   <h3 className="font-bold">{zap.title}</h3>
                   <p className="mt-2">{zap.content}</p>
@@ -123,6 +110,7 @@ export function SearchZap() {
                    <Comments zapId={Number(zap.id)} />
                 </div>
                 </div>
+                </Link>
                 </div>
               ))}
             </div>

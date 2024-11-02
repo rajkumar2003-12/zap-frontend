@@ -1,14 +1,12 @@
 
 import { Zap,Home,User,Search } from "lucide-react";
 import { Button } from "@/components/ui/button";
-import { ZapsPage } from "@/components/CardZap";
 import { Link } from "react-router-dom";
 import { SettingsMenu } from "@/components/settingBut";
 
-export function ZAPHOME(){
+export function ZapHeader(){
     return (
-        <div>
-        <div className=" min-h-screen bg-color1">
+        <div className="sticky top-0 z-10 bg-color1">
             <header className="bg-color2 sticky top-0 z-10 backdrop-blur-md bg-opacity-80">
             <div className="max-w-5xl mx-auto px-4 py-3 flex justify-between items-center">
             <h1 className="text-3xl font-bold flex items-center">
@@ -29,10 +27,6 @@ export function ZAPHOME(){
             </div>
             </div>
             </header>
-            <div className="mb-6">
-                <ZapsPage/>
-            </div>
-        </div>
         </div>
     )
 }

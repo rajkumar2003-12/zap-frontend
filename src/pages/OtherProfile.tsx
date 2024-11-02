@@ -1,15 +1,14 @@
 import axios from "axios";
 import { useEffect, useState, useCallback } from "react";
 import { useLocation } from "react-router-dom";
-import { Zap, Mail,User, Home } from "lucide-react";
+import {Mail} from "lucide-react";
 import { Button } from "@/components/ui/button";
-import { Link } from "react-router-dom";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Card, CardContent } from "@/components/ui/card";
 import { Follow } from "@/components/Follow";
 import { jwtDecode } from "jwt-decode";
 import { Dialog, DialogContent, DialogHeader, DialogTitle } from "@/components/ui/dialog";
-import { SettingsMenu } from "@/components/settingBut";
+import { ZapHeader } from "@/components/ZapHeader";
 
 const BASE_URL = import.meta.env.VITE_BASE_URL;
 
@@ -107,13 +106,8 @@ export function OtherProfile() {
     }
   }, [FollowerFollowingList,userId]);
 
-  const openFollowersDialog = () => {
-    setDialogType('followers');
-    setIsDialogOpen(true);
-  };
-
-  const openFollowingDialog = () => {
-    setDialogType('following');
+  const openDialog = (type: 'followers' | 'following') => {
+    setDialogType(type);
     setIsDialogOpen(true);
   };
 
@@ -135,28 +129,7 @@ export function OtherProfile() {
 
   return (
     <div>
-      <header className="bg-color2 sticky top-0 z-10 backdrop-blur-md bg-opacity-80">
-        <div className="max-w-5xl mx-auto px-4 py-3 flex justify-between items-center">
-          <h1 className="text-3xl font-bold flex items-center">
-            <Zap className="h-8 w-8 mr-2 animate-pulse" />
-            Zap
-          </h1>
-          <div className="flex space-x-4">
-            <Link to="/main">
-              <Button variant="ghost" size="icon">
-                <Home className="h-5 w-5" />
-              </Button>
-            </Link>
-            <SettingsMenu/>
-            <Link to="/profile">
-              <Button variant="ghost" size="icon">
-                <User className="h-5 w-5" />
-              </Button>
-            </Link>
-          </div>
-        </div>
-      </header>
-
+      <ZapHeader/>
       <Card className="mb-8">
         <CardContent className="pt-6">
           <div className="flex flex-col items-center text-center">
@@ -170,12 +143,14 @@ export function OtherProfile() {
             <h1 className="text-3xl font-bold mb-1">{profileData.name}</h1>
             <p className="text-muted-foreground mb-4">@{profileData.username}</p>
             <div className="flex space-x-4 mb-6">
-              <Button variant="outline" onClick={openFollowersDialog}>
-                Followers ({UserIdFollowList?.followersCount})
-              </Button>
-              <Button variant="outline" onClick={openFollowingDialog}>
-                Following ({UserIdFollowList?.followingCount})
-              </Button>
+              <div className="text-center" onClick={() => openDialog('followers')}>
+                  <p className="text-2xl font-semibold">{UserIdFollowList?.followersCount}</p>
+                  <p className="text-sm text-muted-foreground">Followers</p>
+                </div>
+                <div className="text-center" onClick={() => openDialog('following')}>
+                  <p className="text-2xl font-semibold">{UserIdFollowList?.followingCount}</p>
+                  <p className="text-sm text-muted-foreground">Following</p>
+                </div>
             </div>
             {UserId !== profileData.id && (
               <Follow UserId={profileData.id}/>

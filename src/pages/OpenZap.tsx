@@ -6,10 +6,8 @@ import { Like } from "./LikeReaction";
 import { Follow } from "@/components/Follow";
 import { jwtDecode } from "jwt-decode";
 import { useLocation } from "react-router-dom";
-import { Zap,Home,User,Search } from "lucide-react";
-import { Button } from "@/components/ui/button";
-import { SettingsMenu } from "@/components/settingBut";
-
+import { Zap} from "lucide-react";
+import { ZapHeader } from "@/components/ZapHeader";
 
 const BASE_URL = import.meta.env.VITE_BASE_URL;
 
@@ -111,42 +109,21 @@ export function OpenZap() {
 
     return (
         <div className=" min-h-screen">
-            <div>
-            <header className="bg-color2 sticky top-0 z-10 backdrop-blur-md bg-opacity-80">
-            <div className="max-w-5xl mx-auto px-4 py-3 flex justify-between items-center">
-            <h1 className="text-3xl font-bold flex items-center">
-            <Zap className="h-8 w-8 mr-2 animate-pulse" />
-                Zap
-            </h1>
-            <div className="flex space-x-4">
-            <Link to = "/main">
-                <Button variant="ghost" size="icon"><Home className="h-5 w-5" /></Button>
-            </Link>
-            <Link to ="/search">
-            <Button variant="ghost" size="icon"><Search className="h-5 w-5 " /></Button>
-            </Link>
-            <SettingsMenu/>
-            <Link to="/profile">
-                <Button variant="ghost" size="icon"><User className="h-5 w-5" /></Button>
-            </Link>
-            </div>
-            </div>
-            </header>
-            </div>
+            <ZapHeader/>
           <div className="max-w-3xl mx-auto m-10 px-5">
-            <article className="overflow-hidden rounded-lg shadow transition hover:shadow-lg border text-black">
-                <div className="flex items-center bg-color3 hover:bg-black p-4">
+            <article className="overflow-hidden rounded-lg shadow transition hover:shadow-lg">
+                <div className="flex items-center hover:bg-color3 p-4 hover:text-white">
                     <Link to="/users" state={{ userId: zapDetail.author.id }}>
                         <div className="flex items-center justify-center bg-white text-black rounded-full w-10 h-10 mr-5">
                             {zapDetail.author.username.charAt(0).toUpperCase()}
                         </div>
                     </Link>
                     <div>
-                        <p className="font-semibold text-white">{zapDetail.author.name || "Anonymous"}</p>
-                        <p className="text-sm text-white">@{zapDetail.author.username || "Anonymous"}</p>
+                        <p className="font-semibold text-black hover:text-white">{zapDetail.author.name || "Anonymous"}</p>
+                        <p className="text-sm text-black hover:text-white">@{zapDetail.author.username || "Anonymous"}</p>
                     </div>
                 </div>
-                <div className="bg-white p-4 sm:p-6">
+                    <div className="bg-white p-4 sm:p-6 mt-5">
                     <h3 className="mt-0.5 text-lg text-gray-900">{zapDetail.title}</h3>
                     <div className="mt-2 text-sm/relaxed text-gray-500 whitespace-pre-line">
                         {zapDetail.content}

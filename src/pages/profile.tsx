@@ -1,16 +1,16 @@
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Card, CardContent } from "@/components/ui/card";
-import { Mail, Zap, Home, User } from "lucide-react";
+import { Mail} from "lucide-react";
 import { Button } from "@/components/ui/button";
 import axios from "axios";
-import { Link } from "react-router-dom";
 import { useEffect, useState } from "react";
-import { SettingsMenu } from "@/components/settingBut";
 import { Dialog, DialogContent, DialogHeader, DialogTitle } from "@/components/ui/dialog";
+import { ZapHeader } from "@/components/ZapHeader";
 
 const BASE_URL = import.meta.env.VITE_BASE_URL;
 
 interface ProfileData {
+  id: number;
   username: string;
   name: string;
   email: string;
@@ -20,6 +20,8 @@ interface ProfileData {
 }
 
 interface UserIdFollowListData {
+  followersCount: number;
+  followingCount: number;
   followersList: { id: number; username: string; name: string; avatar?: string }[];
   followingList: { id: number; username: string; name: string; avatar?: string }[];
 }
@@ -99,23 +101,7 @@ export function Profile() {
 
   return (
     <div>
-      <header className="bg-color2 sticky top-0 z-10 backdrop-blur-md bg-opacity-80">
-        <div className="max-w-5xl mx-auto px-4 py-3 flex justify-between items-center">
-          <h1 className="text-3xl font-bold flex items-center">
-            <Zap className="h-8 w-8 mr-2 animate-pulse" />
-            Zap
-          </h1>
-          <div className="flex space-x-4">
-            <Link to="/main">
-              <Button variant="ghost" size="icon"><Home className="h-5 w-5" /></Button>
-            </Link>
-            <SettingsMenu />
-            <Link to="/profile">
-              <Button variant="ghost" size="icon"><User className="h-5 w-5" /></Button>
-            </Link>
-          </div>
-        </div>
-      </header>
+      <ZapHeader/>
       <div className="min-h-screen w-full">
         <Card className="mb-8">
           <CardContent className="pt-6">
@@ -128,11 +114,11 @@ export function Profile() {
               <p className="text-muted-foreground mb-4">@{profile.username}</p>
               <div className="flex space-x-4 mb-6">
                 <div className="text-center" onClick={() => openDialog('followers')}>
-                  <p className="text-2xl font-semibold">{profile.followers}</p>
+                  <p className="text-2xl font-semibold">{UserIdFollowList?.followersCount}</p>
                   <p className="text-sm text-muted-foreground">Followers</p>
                 </div>
                 <div className="text-center" onClick={() => openDialog('following')}>
-                  <p className="text-2xl font-semibold">{profile.following}</p>
+                  <p className="text-2xl font-semibold">{UserIdFollowList?.followingCount}</p>
                   <p className="text-sm text-muted-foreground">Following</p>
                 </div>
               </div>
@@ -151,6 +137,7 @@ export function Profile() {
             <ul>
               {(dialogType === 'followers' ? UserIdFollowList?.followersList : UserIdFollowList?.followingList)?.map(user => (
                 <li key={user.id} className="flex items-center space-x-4 py-2">
+                  {/* <Link to="/users" state={{ userId:Number(profile.id)}}> */}
                   <Avatar className="w-10 h-10">
                     {user.avatar ? (
                       <AvatarImage src={user.avatar} alt={user.name} />
@@ -158,6 +145,7 @@ export function Profile() {
                       <AvatarFallback>{user.username[0].toUpperCase()}</AvatarFallback>
                     )}
                   </Avatar>
+                  {/* </Link> */}
                   <div>
                     <p className="font-semibold">{user.name}</p>
                     <p className="text-sm text-muted-foreground">@{user.username}</p>

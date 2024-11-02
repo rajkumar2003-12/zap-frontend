@@ -5,6 +5,7 @@ import { Like } from "@/pages/LikeReaction";
 import { Follow } from "./Follow";
 import { Comments } from "./Comments";
 import {jwtDecode} from "jwt-decode";
+import { ZapHeader } from "./ZapHeader";
 
 const BASE_URL = import.meta.env.VITE_BASE_URL;
 interface User{
@@ -128,6 +129,7 @@ export function ZapsPage() {
 
   return (
     <div>
+      <ZapHeader/>
       <form
         onSubmit={handleSubmit}
         className="w-full max-w-full px-6 py-2 rounded-lg border shadow-lg"
@@ -180,27 +182,26 @@ export function ZapsPage() {
             </div>
         </Link>
         <div>
-          <p className="font-semibold text-white">{zap.author?.name || "Anonymous"}</p>
-          <p className="text-sm text-white">@{zap.author?.username || "Anonymous"}</p>
+          <p className="font-semibold text-white hover:text-red-800">{zap.author?.name || "Anonymous"}</p>
+          <p className="text-sm text-white hover:text-red-800">@{zap.author?.username || "Anonymous"}</p>
         </div>
         </div>
+        <Link to='/openzap' 
+  state={{  ZapUserId: Number(zap.id),}} className="hover:bg-black">
   <div key={zap.id} className="bg-white p-4 sm:p-6">
-
-  <Link to='/openzap' 
-  state={{  ZapUserId: Number(zap.id),}}>
     <a href="#">
       <h3 className="mt-0.5 text-lg text-gray-900">{zap.title}</h3>
     </a>
-    <p className="mt-2 line-clamp-3 text-sm/relaxed text-gray-500">{zap.content}</p>
-    <time className="block text-xs text-green-600 mt-2">{formatDate(zap.updatedAt)}</time>
-    </Link>
-    
+    <p className="mt-2 line-clamp-3 text-sm/relaxed text-gray-500 hover:text-green-600">{zap.content}</p>
+    <time className="block text-xs text-red-400 mt-2">{formatDate(zap.updatedAt)}</time>
+
     <div className="mt-3 flex space-x-4"> 
     <Like zapid={Number(zap.id)} />  
     <Comments zapId={Number(zap.id)} />
      {UserId !== zap.author.id && (<Follow UserId={Number(zap.author.id)} />)}
   </div>
   </div>
+  </Link>
 </article>
   ))}
       </div>

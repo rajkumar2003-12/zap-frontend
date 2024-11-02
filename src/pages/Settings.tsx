@@ -1,8 +1,6 @@
 import axios from "axios";
 import { useState } from "react";
-import { Zap,Home,User,Settings } from "lucide-react";
 import { Button } from "@/components/ui/button";
-import { Link } from "react-router-dom";
 
 import {
   Form,
@@ -15,6 +13,7 @@ import {
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
 import { useForm } from "react-hook-form";
+import { ZapHeader } from "@/components/ZapHeader";
 
 const BASE_URL = import.meta.env.VITE_BASE_URL;
 
@@ -81,25 +80,7 @@ export function Setting({ username = "", name = "", email = "",password=""}: Pro
   return (
 
       <div className="rounded-lg shadow-md w-full min-h-screen">
-      <header className="bg-color2 sticky top-0 z-10 backdrop-blur-md bg-opacity-80">
-            <div className="max-w-5xl mx-auto px-4 py-3 flex justify-between items-center">
-            <h1 className="text-3xl font-bold flex items-center">
-            <Zap className="h-8 w-8 mr-2 animate-pulse" />
-                Zap
-            </h1>
-            <div className="flex space-x-4">
-            <Link to = "/main">
-                <Button variant="ghost" size="icon"><Home className="h-5 w-5" /></Button>
-            </Link>
-            <Link to="/settings">
-            <Button variant="ghost" size="icon"><Settings className="h-5 w-5 " /></Button>
-            </Link>
-            <Link to="/profile">
-                <Button variant="ghost" size="icon"><User className="h-5 w-5" /></Button>
-            </Link>
-            </div>
-            </div>
-            </header>
+        <ZapHeader/>
         <Form {...form}>
           <h1 className="text-2xl text-center font-bold mt-3" >Edit your profile</h1>
           <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-8 m-4">
